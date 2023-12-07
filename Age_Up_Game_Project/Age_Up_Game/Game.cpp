@@ -25,6 +25,82 @@ Time wake_up(){
     return wuTime;
 };
 
+Time math_class(){
+    int ans;
+    Time duration, updTime;
+    cout << "What is 2+2?" << endl;
+    cin >> ans;
+
+    if (ans == 4){
+        cout << "You are correct!" << endl;
+    }
+    else{
+        cout << "The answer you gave was wrong. The correct answer is 4." << endl;
+    }
+};
+
+void eng_class(){
+    string ans;
+    cout << "What do you call an animal that goes \'meow\'?" << endl;
+    cin >> ans;
+
+    if (ans == "cat"){
+        cout << "You are correct!" << endl;
+    }
+    else{
+        cout << "The answer you gave was wrong. The correct answer is cat." << endl;
+    }
+};
+
+void math_homework(){
+    int ans;
+    cout << "What is 4-2?" << endl;
+    cin >> ans;
+
+    if (ans == 2){
+        cout << "You are correct!" << endl;
+    }
+    else{
+        cout << "The answer you gave was wrong. The correct answer is 2." << endl;
+    }
+};
+
+void eng_homework(){
+    string ans;
+    cout << "What sound does a cat make?" << endl;
+    cin >> ans;
+
+    if (ans == "meow"){
+        cout << "You are correct!" << endl;
+    }
+    else{
+        cout << "The answer you gave was wrong. The correct answer is meow." << endl;
+    }
+};
+
+Time make_bed(Time cTime){
+    Time duration, updTime;
+    duration.hour = 0;
+    duration.minute = 10;
+
+    updTime = update_time(cTime, duration);
+
+    return updTime;
+};
+
+void go_through_day(){
+    Time cTime;
+
+    cTime = wake_up();
+    cout << "Time after wake up function is: " << cTime.hour << ":" << cTime.minute << endl;
+
+    cTime = make_bed();
+    cout << "Time after make bed function is: " << cTime.hour << ":" << cTime.minute << endl;
+    math_class();
+    eng_class();
+    math_homework();
+}
+
 int main(){
     Class math, english;
     math.duration.hour = 1;
@@ -32,13 +108,8 @@ int main(){
     english.duration.hour = 1;
     english.duration.minute = 0;
 
-    Time cTime;
-    cTime.hour = 9;
-    cTime.minute = 30;
-    cout << "Time before wake up function is: " << cTime.hour << ":" << cTime.minute << endl;
 
-    cTime = wake_up();
-    cout << "Time after wake up function is: " << cTime.hour << ":" << cTime.minute << endl;
+    
 
     cout << "Time before Math class is: " << cTime.hour << ":" << cTime.minute << endl;
 
