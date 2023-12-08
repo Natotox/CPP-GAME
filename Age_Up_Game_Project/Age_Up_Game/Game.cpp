@@ -3,6 +3,7 @@ using namespace std;
 
 struct Time{
     int hour, minute;
+    string ampm;
 };
 
 struct Class{
@@ -13,6 +14,31 @@ Time update_time(Time current_time, Time add_time){
     Time updTime;
     updTime.hour = current_time.hour + add_time.hour;
     updTime.minute = current_time.minute +  add_time.minute;
+
+    if (updTime.minute > 59){
+        updTime.minute = updTime.minute % 60;
+        updTime.hour++;
+    }
+
+    if(updTime.hour == 12){
+        updTime.ampm = "PM";
+    }
+    else if (updTime.hour > 12){
+        if(updTime.hour == 24){
+            updTime.hour = updTime.hour - 12;
+            updTime.ampm = "AM";
+        }
+        else{
+            updTime.hour = updTime.hour - 12;
+            updTime.ampm = "PM";
+        }
+        
+    }
+    else{
+        updTime.ampm = "AM";
+    }
+
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl << "Time is: " << updTime.hour << ":" << updTime.minute << " " << updTime.ampm << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" <<endl;
 
     return updTime;
 };
@@ -25,9 +51,12 @@ Time wake_up(){
     return wuTime;
 };
 
-Time math_class(){
+Time math_class(Time cTime){
     int ans;
     Time duration, updTime;
+    duration.hour = 1;
+    duration.minute = 0;
+
     cout << "What is 2+2?" << endl;
     cin >> ans;
 
@@ -37,10 +66,18 @@ Time math_class(){
     else{
         cout << "The answer you gave was wrong. The correct answer is 4." << endl;
     }
+
+    updTime = update_time(cTime, duration);
+
+    return updTime;
 };
 
-void eng_class(){
+Time eng_class(Time cTime){
     string ans;
+    Time duration, updTime;
+    duration.hour = 1;
+    duration.minute = 0;
+
     cout << "What do you call an animal that goes \'meow\'?" << endl;
     cin >> ans;
 
@@ -50,10 +87,30 @@ void eng_class(){
     else{
         cout << "The answer you gave was wrong. The correct answer is cat." << endl;
     }
+
+    updTime = update_time(cTime, duration);
+
+    return updTime;
 };
 
-void math_homework(){
+Time go_home(){
+    Time ghTime;
+    ghTime.hour = 12;
+    ghTime.minute = 45;
+
+    cout << "Went home" << endl;
+
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl << "Time is: " << ghTime.hour << ":" << ghTime.minute << " " << ghTime.ampm << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" <<endl;
+    
+    return ghTime;
+}
+
+Time math_homework(Time cTime){
     int ans;
+    Time duration, updTime;
+    duration.hour = 0;
+    duration.minute = 30;
+
     cout << "What is 4-2?" << endl;
     cin >> ans;
 
@@ -63,10 +120,19 @@ void math_homework(){
     else{
         cout << "The answer you gave was wrong. The correct answer is 2." << endl;
     }
+
+    updTime = update_time(cTime, duration);
+
+    return updTime;
 };
 
-void eng_homework(){
+Time eng_homework(Time cTime){
     string ans;
+
+    Time duration, updTime;
+    duration.hour = 0;
+    duration.minute = 30;
+
     cout << "What sound does a cat make?" << endl;
     cin >> ans;
 
@@ -76,12 +142,24 @@ void eng_homework(){
     else{
         cout << "The answer you gave was wrong. The correct answer is meow." << endl;
     }
+
+    updTime = update_time(cTime, duration);
+
+    return updTime;
 };
 
 Time make_bed(Time cTime){
+    char toggle;
     Time duration, updTime;
     duration.hour = 0;
     duration.minute = 10;
+
+    cout << "Enter \'t\' to make bed" << endl;
+    cin >> toggle;
+
+    if (toggle == 't'){
+        cout << "Bed is made!" << endl;
+    }
 
     updTime = update_time(cTime, duration);
 
@@ -92,31 +170,22 @@ void go_through_day(){
     Time cTime;
 
     cTime = wake_up();
-    cout << "Time after wake up function is: " << cTime.hour << ":" << cTime.minute << endl;
 
-    cTime = make_bed();
-    cout << "Time after make bed function is: " << cTime.hour << ":" << cTime.minute << endl;
-    math_class();
-    eng_class();
-    math_homework();
+    cTime = make_bed(cTime);
+
+    cTime = math_class(cTime);
+
+    cTime = eng_class(cTime);
+
+    cTime = go_home();
+
+    cTime = math_homework(cTime);
+
+    cTime = eng_homework(cTime);
 }
 
 int main(){
-    Class math, english;
-    math.duration.hour = 1;
-    math.duration.minute = 0;
-    english.duration.hour = 1;
-    english.duration.minute = 0;
+    go_through_day();
 
-
-    
-
-    cout << "Time before Math class is: " << cTime.hour << ":" << cTime.minute << endl;
-
-    cTime = update_time(cTime, math.duration);
-    cout << "Time after Math class is: " << cTime.hour << ":" << cTime.minute << endl;
-
-    cTime = update_time(cTime, english.duration);
-    cout << "Time after English class is: " << cTime.hour << ":" << cTime.minute << endl;
     return 0;
 }
